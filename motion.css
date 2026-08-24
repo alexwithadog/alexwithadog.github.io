@@ -70,7 +70,7 @@ body.page-leaving #app { opacity: 0; transform: translateY(-8px); transition: op
 .ticker .ticker-track {
   display: flex;
   width: max-content;
-  padding: 0;
+  padding: 18px 0;
   animation: ticker-loop 24s linear infinite !important;
   will-change: transform;
 }
@@ -97,9 +97,6 @@ body.page-leaving #app { opacity: 0; transform: translateY(-8px); transition: op
 
 .hero::before { animation: soft-orbit 11s ease-in-out infinite; }
 .status-dot { animation: status-pulse 2.2s ease-in-out infinite; }
-.hero h1 em, .page-intro h1 em, .detail-hero h1 em { display: inline-block; transition: transform .45s ease; }
-.hero:hover h1 em { transform: translateX(8px); }
-
 .project-row, .project-card, .detail-blocks article, .principle-grid article {
   transition: transform .3s ease, background-color .3s ease, border-color .3s ease;
 }

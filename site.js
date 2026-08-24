@@ -127,7 +127,7 @@ motionStyles.rel = "stylesheet";
 motionStyles.href = "/motion.css";
 document.head.append(motionStyles);
 const layoutStyle = document.createElement("style");
-layoutStyle.textContent = ".hero{min-height:clamp(590px,70vh,740px);padding-top:clamp(80px,6vw,105px);padding-bottom:clamp(45px,4vw,70px)}";
+layoutStyle.textContent = ".hero{min-height:clamp(560px,68vh,720px);padding-top:clamp(80px,6vw,105px);padding-bottom:clamp(45px,4vw,70px)}";
 document.head.append(layoutStyle);
 document.querySelector("#app").innerHTML = shell(page, render());
 initializeTicker();
