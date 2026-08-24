@@ -149,6 +149,8 @@ body.page-leaving #app { opacity: 0; transform: translateY(-8px); transition: op
 .link-icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 25px; height: 25px; color: currentColor; }
 .link-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .link-icon svg .icon-fill { fill: currentColor; stroke: none; }
+.link-icon .linkedin-cutout { fill: var(--ink); stroke: none; }
+.footer-meta .copyright { color: var(--paper); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
 .section-action { display: inline-flex; width: fit-content; margin-top: 26px; }
 .connect-action { margin-top: 18px; }
 .connect-links { margin-top: 32px; }
