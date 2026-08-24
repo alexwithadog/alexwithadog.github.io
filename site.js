@@ -74,9 +74,61 @@ function linkPage() {
   return `<section class="links-page section-pad"><p class="kicker">Find me / 03</p><h1>More places to<br><em>keep in touch.</em></h1><div class="link-stack">${stack}</div><p class="link-note">I’m always building, learning, and collecting better questions.</p></section>`;
 }
 
+function initializeTicker() {
+  const ticker = document.querySelector(".ticker");
+  if (!ticker) return;
+  const interests = ["Robotics", "3D printing", "Dragon boat", "Photography", "Music", "Making"];
+  const group = `<div class="ticker-group">${interests.map(item => `<span class="ticker-item">${item}<b aria-hidden="true">✦</b></span>`).join("")}</div>`;
+  ticker.innerHTML = `<div class="ticker-track">${group}${group}</div>`;
+}
+
+function initializeMotion() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.body.classList.add("motion-ready");
+  if (reducedMotion) return;
+
+  const selectors = [
+    ".section-heading", ".project-row", ".split-callout > *", ".connect-panel > *",
+    ".page-intro > *", ".about-layout > *", ".about-facts > *", ".principle-grid article",
+    ".project-card", ".detail-hero > *", ".detail-grid > *", ".detail-blocks article",
+    ".links-page > *", ".link-stack a", ".site-footer > *"
+  ].join(",");
+  const revealTargets = [...document.querySelectorAll(selectors)];
+  revealTargets.forEach((element, index) => {
+    element.classList.add("reveal");
+    element.style.setProperty("--reveal-delay", `${(index % 4) * 70}ms`);
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  revealTargets.forEach(element => observer.observe(element));
+
+  document.querySelectorAll('a[href^="/"]:not([target])').forEach(link => {
+    link.addEventListener("click", event => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const destination = new URL(link.href, window.location.href);
+      if (destination.pathname === window.location.pathname && destination.hash === window.location.hash) return;
+      event.preventDefault();
+      document.body.classList.add("page-leaving");
+      window.setTimeout(() => window.location.assign(destination.href), 260);
+    });
+  });
+}
+
 const page = document.body.dataset.page || "home";
 const render = { home, about, projects: projectPage, links: linkPage, wro: wroPage, maker: makerPage }[page] || home;
+const motionStyles = document.createElement("link");
+motionStyles.rel = "stylesheet";
+motionStyles.href = "/motion.css";
+document.head.append(motionStyles);
 const layoutStyle = document.createElement("style");
 layoutStyle.textContent = ".hero{min-height:clamp(590px,70vh,740px);padding-top:clamp(80px,6vw,105px);padding-bottom:clamp(45px,4vw,70px)}";
 document.head.append(layoutStyle);
 document.querySelector("#app").innerHTML = shell(page, render());
+initializeTicker();
+initializeMotion();
