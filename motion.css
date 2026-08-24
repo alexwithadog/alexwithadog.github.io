@@ -159,6 +159,9 @@ body.page-leaving #app { opacity: 0; transform: translateY(-8px); transition: op
 .link-stack a { grid-template-columns: 38px 54px 1fr auto; }
 .link-stack .link-icon { width: 29px; height: 29px; }
 
+/* Keep the first card in every activity-grid row aligned with Robotics. */
+.activity-grid article:nth-child(3n + 1) { padding-left: 0; }
+
 @media (max-width: 760px) {
   .reveal { transform: translateY(26px); }
   .ticker .ticker-track { animation-duration: 18s !important; }
